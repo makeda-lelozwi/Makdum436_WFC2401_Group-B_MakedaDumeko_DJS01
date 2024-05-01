@@ -17,13 +17,14 @@ const fbr = 0.5; // fuel burn rate (kg/s)
 
 // Pick up an error with how the function below is called and make it robust to such errors
 function calcNewVel(acc, vel, time) {
-  //fix: convert acceleration by x3.6 OR convert velocity to m/s
+  //fix: convert acceleration by x3.6 
+  //fix: also the parameters were switched around 
   //where do i use object destructuring?
   return vel + acc * 3.6 * time;
 }
 
 const d2 = (d + (vel / 3.6) * time) / 1000; //calcultes new distance
-const rf = fuel - fbr * time; //calculates remaining fuel
+const rf = fuel - fbr * time; //calculates remaining fuel 
 let vel2 = calcNewVel(acc, vel, time); //calculates new velocity based on acceleration
 
 console.log(`Corrected New Velocity: ${vel2} km/h`);
