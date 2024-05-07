@@ -2,6 +2,7 @@
 - Replace the content of the existing README file with an explanation of the changes made to each portion
 - Replace existing comments in code with own explanations 
  */
+const CONVERSION_FACTOR = 3.6;
 
 //INITIAL VALUES
 const initialVelocityInKmPerHour = 10000; // velocity (km/h) fix: convert to m/s by /3.6
