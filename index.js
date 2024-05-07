@@ -4,40 +4,57 @@
  */
 const CONVERSION_FACTOR = 3.6;
 
-//INITIAL VALUES
-const initialVelocityInKmPerHour = 10000; // velocity (km/h) fix: convert to m/s by /3.6
-const accelerationInMetresPerSecond = 3; // acceleration (m/s^2)
-const timeInSeconds = 3600; // seconds (1 hour)
-const initialDistanceInKm = 0; // distance (km) fix: final answer will be given as m then convert to km (/1000)
-const initialFuelAmountInKg = 5000; // remaining fuel (kg)
-const fuelBurnRateInKgPerSecond = 0.5; // fuel burn rate (kg/s)
+//VALUES
+const initialVelocity = {
+  value: 10000,
+  measurement: "km/h",
+}; // velocity (km/h) fix: convert to m/s by /3.6
 
-//FINAL VALUES
-const finalDistanceInKm =
-  initialDistanceInKm + initialVelocityInKmPerHour * timeInSeconds; //calcultes new distance
-const remainingFuelAmountInKg =
-  initialFuelAmountInKg - fuelBurnRateInKgPerSecond * timeInSeconds; //calculates remaining fuel
-const finalVelocityInKmPerHour = calcFinalVelocity(
-  accelerationInMetresPerSecond,
-  initialVelocityInKmPerHour,
-  timeInSeconds
-); //calculates new velocity based on acceleration
+// const acceleration = {
+//   value: 3,
+//   measurement: "m/s^2",
+// }; // acceleration (m/s^2)
 
-// Pick up an error with how the function below is called and make it robust to such errors
-const calcFinalVelocity = (
-  accelerationInMetresPerSecond,
-  initialVelocityInKmPerHour,
-  timeInSeconds
-) => {
-  if (accelerationInMetresPerSecond === 3) {
-    console.error("Convert acceleration.");
-  } else {
-    return (
-      initialVelocityInKmPerHour + accelerationInMetresPerSecond * timeInSeconds
-    );
-  }
+// const time = {
+//   value: 3600,
+//   measurement: "seconds",
+// }; // seconds (1 hour)
+
+// const initialDistance = {
+//   value: 0,
+//   measurement: "km",
+// }; // distance (km) fix: final answer will be given as m then convert to km (/1000)
+
+// const initialFuelAmount = {
+//   value: 5000,
+//   measurement: "kg",
+// }; // remaining fuel (kg)
+
+// const fuelBurnRate = {
+//   value: 0.5,
+//   measurement: "kg/s",
+// }; // fuel burn rate (kg/s)
+
+//FUNCTIONS FOR CALCULATIONS
+const calcFinalVelocity = (props) => {
+  const { initialVelocity, acceleration, time } = props;
+  const { value, measurement } = initialVelocity;
+
+  if (measurement !== "m/s")
+    throw new Error('"Velocity" must be in metres-per-second!');
+
+  return value + acceleration * time;
 };
 
-console.log(`Corrected New Velocity: ${finalVelocityInKmPerHour} km/h`);
-console.log(`Corrected New Distance: ${finalDistanceInKm} km`);
-console.log(`Corrected Remaining Fuel: ${remainingFuelAmountInKg} kg`);
+//FINAL VALUES
+// const finalDistance = initialDistance + initialVelocity * time; //calcultes new distance
+// const remainingFuelAmount = initialFuelAmount - fuelBurnRate * time; //calculates remaining fuel
+const finalVelocity = calcFinalVelocity({
+  time: 3600,
+  acceleration: 3,
+  initialVelocity,
+}); //calculates new velocity based on acceleration
+
+console.log(`Corrected New Velocity: ${finalVelocity} km/h`);
+console.log(`Corrected New Distance: ${finalDistance} km`);
+console.log(`Corrected Remaining Fuel: ${remainingFuelAmount} kg`);
