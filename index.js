@@ -11,14 +11,14 @@ const initialVelocity = {
   vUnit: "km/h",
 }; //convert to m/s by /3.6
 
-const acceleration = {
-  value: 3,
-  unit: "m/s^2",
+const accelerationRate = {
+  acceleration: 3,
+  aUnit: "m/s^2",
 };
 
-const time = {
-  value: 3600,
-  unit: "seconds",
+const duration = {
+  time: 3600,
+  tUnit: "seconds",
 };
 
 const initialDistance = {
@@ -27,34 +27,69 @@ const initialDistance = {
 }; //final answer will be given as m then convert to km (/1000)
 
 const initialFuelAmount = {
-  value: 5000,
-  unit: "kg",
+  fuel: 5000,
+  fUnit: "kg",
 };
 
 const fuelBurnRate = {
-  value: 0.5,
-  unit: "kg/s",
+  rate: 0.5,
+  rUnit: "kg/s",
 };
 
 //FUNCTIONS FOR CALCULATIONS
 const calcFinalVelocity = (props) => {
-  const { initialVelocity, acceleration, time } = props;
+  const { initialVelocity, accelerationRate, duration } = props;
   const { velocity, vUnit } = initialVelocity;
+  const { acceleration, aUnit } = accelerationRate;
+  const { time, tUnit } = duration;
+
+  if (!acceleration) throw new Error("Please provide an acceleration!");
+
+  if (aUnit !== "m/s^2")
+    throw new Error(
+      "Ensure that the acceleration is in metres per second squared!"
+    );
+
+  if (!time) throw new Error("Please provide a time!");
+
+  let timeInSeconds;
+  if (tUnit == "min") {
+    timeInSeconds = time * 60;
+  } else if (tUnit == "hr") {
+    timeInSeconds = time * 3600;
+  } else if (tUnit == "seconds") {
+    timeInSeconds = time;
+  }
 
   const velocityAsMetresPerSecond =
     vUnit === "m/s" ? velocity : velocity / SPEED_CONVERSION; //whether the unit is in m/s or km/h, it will give correct answer
 
-  const velocityFormula = velocityAsMetresPerSecond + acceleration * time; //Gives final velocity in m/s
+  const velocityFormula =
+    velocityAsMetresPerSecond + acceleration * timeInSeconds; //Gives final velocity in m/s
 
   //They want the velocity in km/h
   return velocityFormula * SPEED_CONVERSION;
 };
 
 const calcFinalDistance = (props) => {
-  const { initialDistance, initialVelocity, time } = props;
+  const { initialDistance, initialVelocity, duration } = props;
   const { distance, dUnit } = initialDistance;
   const { velocity, vUnit } = initialVelocity;
+  const { time, tUnit } = duration;
 
+  if (!time) throw new Error("Please provide a time (in seconds)");
+
+  let timeInSeconds;
+  if (tUnit == "min") {
+    timeInSeconds = time * 60;
+  } else if (tUnit == "hr") {
+    timeInSeconds = time * 3600;
+  } else if (tUnit == "seconds") {
+    timeInSeconds = time;
+  }
+
+  if (typeof distance !== "number")
+    throw new Error("Please provide a distance!");
   const distanceInMetres =
     dUnit === "m" ? distance : distance * DISTANCE_CONVERSION;
 
@@ -62,36 +97,52 @@ const calcFinalDistance = (props) => {
     vUnit === "m/s" ? velocity : velocity / SPEED_CONVERSION;
 
   const finalDistanceFormula =
-    distanceInMetres + velocityAsMetresPerSecond * time;
+    distanceInMetres + velocityAsMetresPerSecond * timeInSeconds;
 
   return finalDistanceFormula / DISTANCE_CONVERSION;
 };
 
 const calcRemainingFuelAmount = (props) => {
-  const { initialFuelAmount, fuelBurnRate, time } = props;
-  const { value } = initialFuelAmount;
+  const { initialFuelAmount, fuelBurnRate, duration } = props;
+  const { fuel } = initialFuelAmount;
+  const { time, tUnit } = duration;
+  const { rate } = fuelBurnRate;
 
-  const remainingFuelFormula = value - fuelBurnRate * time;
+  if (!time) throw new Error('Please provide a "time" (in seconds)');
+  let timeInSeconds;
+  if (tUnit == "min") {
+    timeInSeconds = time * 60;
+  } else if (tUnit == "hr") {
+    timeInSeconds = time * 3600;
+  } else if (tUnit == "seconds") {
+    timeInSeconds = time;
+  }
+
+  if (!fuel) throw new Error("Please provide an initial fuel amount!");
+
+  if (!rate) throw new Error("Please provide a fuel burn rate!");
+
+  const remainingFuelFormula = fuel - rate * timeInSeconds;
 
   return remainingFuelFormula;
 };
 
 //FINAL VALUES
 const finalVelocity = calcFinalVelocity({
-  time: 3600,
-  acceleration: 3,
+  duration,
+  accelerationRate,
   initialVelocity,
 }); //returns final velocity based on acceleration and time
 
 const finalDistance = calcFinalDistance({
-  time: 3600,
+  duration,
   initialDistance,
   initialVelocity,
 }); //returns final distance based on velocity and time
 
 const remainingFuelAmount = calcRemainingFuelAmount({
-  time: 3600,
-  fuelBurnRate: 0.5,
+  duration,
+  fuelBurnRate,
   initialFuelAmount,
 }); //returns remaining fuel given a burn rate and time
 
