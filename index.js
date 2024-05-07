@@ -11,13 +11,13 @@ const initialFuelAmountInKg = 5000; // remaining fuel (kg)
 const fuelBurnRateInKgPerSecond = 0.5; // fuel burn rate (kg/s)
 
 // Pick up an error with how the function below is called and make it robust to such errors
-function calcNewVel(acc, vel, time) {
+const calcNewVel = (acc, vel, time) => {
   if (acc === 3) {
     console.error("Convert acceleration.");
   } else {
     return vel + acc * time;
   }
-}
+};
 
 const finalDistanceInKm = (d + (vel / 3.6) * time) / 1000; //calcultes new distance
 const remainingFuelAmountInKg = fuel - fbr * time; //calculates remaining fuel
