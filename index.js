@@ -9,7 +9,7 @@ const DISTANCE_CONVERSION = 1000;
 const initialVelocity = {
   velocity: 10000,
   vUnit: "km/h",
-}; //convert to m/s by /3.6
+};
 
 const accelerationRate = {
   acceleration: 3,
@@ -24,7 +24,7 @@ const duration = {
 const initialDistance = {
   distance: 0,
   dUnit: "km",
-}; //final answer will be given as m then convert to km (/1000)
+};
 
 const initialFuelAmount = {
   fuel: 5000,
@@ -59,16 +59,15 @@ const calcFinalVelocity = (props) => {
     timeInSeconds = time * 3600;
   } else if (tUnit == "seconds") {
     timeInSeconds = time;
-  }
+  } //ensures that time is always in seconds
 
   const velocityAsMetresPerSecond =
-    vUnit === "m/s" ? velocity : velocity / SPEED_CONVERSION; //whether the unit is in m/s or km/h, it will give correct answer
+    vUnit === "m/s" ? velocity : velocity / SPEED_CONVERSION; //ensures velocity is always in m/s
 
   const velocityFormula =
     velocityAsMetresPerSecond + acceleration * timeInSeconds; //Gives final velocity in m/s
 
-  //They want the velocity in km/h
-  return velocityFormula * SPEED_CONVERSION;
+  return velocityFormula * SPEED_CONVERSION; //converts velocity to km/h
 };
 
 const calcFinalDistance = (props) => {
@@ -86,20 +85,21 @@ const calcFinalDistance = (props) => {
     timeInSeconds = time * 3600;
   } else if (tUnit == "seconds") {
     timeInSeconds = time;
-  }
+  } //ensures that time is always in seconds
 
   if (typeof distance !== "number")
     throw new Error("Please provide a distance!");
+
   const distanceInMetres =
-    dUnit === "m" ? distance : distance * DISTANCE_CONVERSION;
+    dUnit === "m" ? distance : distance * DISTANCE_CONVERSION; //ensures distance always in metres
 
   const velocityAsMetresPerSecond =
-    vUnit === "m/s" ? velocity : velocity / SPEED_CONVERSION;
+    vUnit === "m/s" ? velocity : velocity / SPEED_CONVERSION; // ensures velocity always in m/s
 
   const finalDistanceFormula =
-    distanceInMetres + velocityAsMetresPerSecond * timeInSeconds;
+    distanceInMetres + velocityAsMetresPerSecond * timeInSeconds; //returns final distance in metres
 
-  return finalDistanceFormula / DISTANCE_CONVERSION;
+  return finalDistanceFormula / DISTANCE_CONVERSION; // converts final distance to km
 };
 
 const calcRemainingFuelAmount = (props) => {
@@ -109,6 +109,7 @@ const calcRemainingFuelAmount = (props) => {
   const { rate } = fuelBurnRate;
 
   if (!time) throw new Error('Please provide a "time" (in seconds)');
+
   let timeInSeconds;
   if (tUnit == "min") {
     timeInSeconds = time * 60;
@@ -116,7 +117,7 @@ const calcRemainingFuelAmount = (props) => {
     timeInSeconds = time * 3600;
   } else if (tUnit == "seconds") {
     timeInSeconds = time;
-  }
+  } // ensures time is always in seconds
 
   if (!fuel) throw new Error("Please provide an initial fuel amount!");
 
