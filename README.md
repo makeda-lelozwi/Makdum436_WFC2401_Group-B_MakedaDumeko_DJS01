@@ -4,9 +4,7 @@
 
 In this challenge I debugged, refactored, and enhanced JavaScript functions designed for determining the trajectory of a spacecraft. The initial functions are flawed and resulted in incorrect calculations.
 
-##### File Structure
-
-##### Problem Areas to Address
+##### Main Problem Areas to Address
 
 1. **Unit Mismatch**: The provided functions failed to convert units correctly:
 
@@ -22,6 +20,14 @@ Line 26: The resulting distance shows how far the rocket would go after 3600 hou
 
 Lines 21 - 23: The arguments for the calcFinalVel function are velocity, acceleration, and time (in that order). However, when the function is called (in line 18) the order of parameters is acceleration, velocity and time.
 
+##### Additional Issues
+
+1. **Vague Variable Names**:
+
+2. **Insufficient Error Handling**:
+
+3. **Incorrect Function Declaration and Calling**:
+
 #### Solution Approach
 
 - Declared global variables to store conversion factors for speed and distance.
@@ -29,8 +35,8 @@ Lines 21 - 23: The arguments for the calcFinalVel function are velocity, acceler
 - Used object destructuring in function parameters:
 
   Lines 5 - 33: declared each initial variable as an object containing the size of the variable and its unit of measurement.
-  Lines 36 - 125: within the functions for calculating final velocity, final distance, and remaining fuel amount I desctructed the values for each variable
+  Lines 36 - 125: within the functions for calculating final velocity, final distance, and remaining fuel amount I desctructed the values for each variable. Used the destructured values within the corrected formulae, unit conversions, and in handling errors.
 
 - Implement accurate unit conversions within the functions.
 
-- Implemented error handling for incorrect units of measurement for velocity, acceleration, time, fuel, and distance.
+- Implemented error handling (be more specific) for incorrect units of measurement for velocity, acceleration, time, fuel, and distance.
