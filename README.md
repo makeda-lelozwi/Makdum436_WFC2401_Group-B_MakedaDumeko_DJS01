@@ -8,17 +8,17 @@ In this challenge I debugged, refactored, and enhanced JavaScript functions desi
 
 1. **Unit Mismatch**: The provided functions failed to convert units correctly:
 
-Line 16: The values used to calculate final distance (in km) were initial distance (in km), velocity (in km/h) and time (in seconds). Time should be expressed as hours.
+  Line 16: The values used to calculate final distance (in km) were initial distance (in km), velocity (in km/h) and time (in seconds). Time should be expressed as hours.
 
-Line 18: The values used to calculate final velocity (in km/h) were initial velocity (in km/h), acceleration (in m/s^-2) and time (in seconds). Initial velocity should be expressed in metres per second and then the final velocity should be converted back to km/h.
+  Line 18: The values used to calculate final velocity (in km/h) were initial velocity (in km/h), acceleration (in m/s^-2) and time (in seconds). Initial velocity should be expressed in metres per second and then the final velocity should be converted back to km/h.
 
-Line 25: The resulting velocity is based on an initial velocity of 10 000 m/s^-2 instead of 10 000 km/h (which converts to 2777.78 m/s^-2).
+  Line 25: The resulting velocity is based on an initial velocity of 10 000 m/s^-2 instead of 10 000 km/h (which converts to 2777.78 m/s^-2).
 
-Line 26: The resulting distance shows how far the rocket would go after 3600 hours instead of 3600 seconds.
+  Line 26: The resulting distance shows how far the rocket would go after 3600 hours instead of 3600 seconds.
 
 2. **Parameter Misalignment**: Parameters were not handled in a way that prevents or highlights the potential for unit mismatch errors:
 
-Lines 21 - 23: The arguments for the calcFinalVel function are velocity, acceleration, and time (in that order). However, when the function is called (in line 18) the order of parameters is acceleration, velocity and time.
+  Lines 21 - 23: The arguments for the calcFinalVel function are velocity, acceleration, and time (in that order). However, when the function is called (in line 18) the order of parameters is acceleration, velocity and time.
 
 ##### Additional Issues
 
