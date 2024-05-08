@@ -1,7 +1,3 @@
-/*
-- Replace the content of the existing README file with an explanation of the changes made to each portion
-- Replace existing comments in code with own explanations 
- */
 const SPEED_CONVERSION = 3.6;
 const DISTANCE_CONVERSION = 1000;
 
@@ -53,11 +49,11 @@ const calcFinalVelocity = (props) => {
   if (!time) throw new Error("Please provide a time!");
 
   let timeInSeconds;
-  if (tUnit == "min") {
+  if (tUnit === "min") {
     timeInSeconds = time * 60;
-  } else if (tUnit == "hr") {
+  } else if (tUnit === "hr") {
     timeInSeconds = time * 3600;
-  } else if (tUnit == "seconds") {
+  } else if (tUnit === "seconds") {
     timeInSeconds = time;
   } //ensures that time is always in seconds
 
@@ -79,11 +75,11 @@ const calcFinalDistance = (props) => {
   if (!time) throw new Error("Please provide a time (in seconds)");
 
   let timeInSeconds;
-  if (tUnit == "min") {
+  if (tUnit === "min") {
     timeInSeconds = time * 60;
-  } else if (tUnit == "hr") {
+  } else if (tUnit === "hr") {
     timeInSeconds = time * 3600;
-  } else if (tUnit == "seconds") {
+  } else if (tUnit === "seconds") {
     timeInSeconds = time;
   } //ensures that time is always in seconds
 
@@ -111,11 +107,11 @@ const calcRemainingFuelAmount = (props) => {
   if (!time) throw new Error('Please provide a "time" (in seconds)');
 
   let timeInSeconds;
-  if (tUnit == "min") {
+  if (tUnit === "min") {
     timeInSeconds = time * 60;
-  } else if (tUnit == "hr") {
+  } else if (tUnit === "hr") {
     timeInSeconds = time * 3600;
-  } else if (tUnit == "seconds") {
+  } else if (tUnit === "seconds") {
     timeInSeconds = time;
   } // ensures time is always in seconds
 

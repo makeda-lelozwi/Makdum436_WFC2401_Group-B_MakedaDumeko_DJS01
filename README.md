@@ -1,47 +1,36 @@
-### DJS01: Mars Climate Orbiter Challenge
+### DJS01: Mars Climate Orbiter Solution
 
-The Mars Climate Orbiter incident in 1999 is a stark reminder of the importance of precision in space missions, highlighting how a simple unit mismatch led to the loss of the spacecraft. This challenge seeks to simulate similar challenges in a spacecraft navigation system, emphasising the need for accuracy in calculations.
+#### Overview
 
-#### Challenge Overview
+In this challenge I debugged, refactored, and enhanced JavaScript functions designed for determining the trajectory of a spacecraft. The initial functions are flawed and resulted in incorrect calculations.
 
-This challenge invites students to debug, refactor, and enhance JavaScript functions designed for determining the trajectory of a spacecraft. The initial functions are flawed and may result in incorrect calculations.
-
-![alt text](mars.gif)
+##### File Structure
 
 ##### Problem Areas to Address
 
-1. **Unit Mismatch**: The provided functions fail to convert units correctly, leading to calculation inaccuracies.
-2. **Parameter Misalignment**: Parameters are not handled in a way that prevents or highlights the potential for unit mismatch errors, leading to possible confusion.
+1. **Unit Mismatch**: The provided functions failed to convert units correctly:
 
-##### Initial Parameters
+Line 16: The values used to calculate final distance (in km) were initial distance (in km), velocity (in km/h) and time (in seconds). Time should be expressed as hours.
 
-- **Initial Velocity (`vel`)**: The starting speed of the spacecraft, 10,000 km/h.
-- **Acceleration (`acc`)**: The spacecraft's acceleration, 3 m/s².
-- **Time (`time`)**: The duration of the calculation, 3,600 seconds (equivalent to 1 hour).
-- **Initial Distance (`d`)**: The starting distance from the reference point, 0 km.
-- **Initial Fuel (`fuel`)**: The starting amount of fuel, 5,000 kg.
-- **Fuel Burn Rate (`fbr`)**: The rate at which fuel is consumed, 0.5 kg/s.
+Line 18: The values used to calculate final velocity (in km/h) were initial velocity (in km/h), acceleration (in m/s^-2) and time (in seconds). Initial velocity should be expressed in metres per second and then the final velocity should be converted back to km/h.
 
-##### Expected Corrected Results
+Line 25: The resulting velocity is based on an initial velocity of 10 000 m/s^-2 instead of 10 000 km/h (which converts to 2777.78 m/s^-2).
 
-- **New Velocity**: Approximately 48880 km/h after correction.
-- **New Distance**: Approximately 10000 km after correction.
-- **Remaining Fuel**: Approximately 3,200 kg after correction.
+Line 26: The resulting distance shows how far the rocket would go after 3600 hours instead of 3600 seconds.
 
-#### Your Task
+2. **Parameter Misalignment**: Parameters were not handled in a way that prevents or highlights the potential for unit mismatch errors:
 
-1. **Identify and Understand Errors**: Analyse the provided functions to determine how unit mismatches and parameter misalignments cause incorrect results.
-2. **Refactor and Correct**: Modify the functions to handle parameters more effectively, incorporating object destructuring for clarity and implementing necessary unit conversions.
+Lines 21 - 23: The arguments for the calcFinalVel function are velocity, acceleration, and time (in that order). However, when the function is called (in line 18) the order of parameters is acceleration, velocity and time.
 
 #### Solution Approach
 
-- Use object destructuring in function parameters for better clarity.
+- Declared global variables to store conversion factors for speed and distance.
+
+- Used object destructuring in function parameters:
+
+  Lines 5 - 33: declared each initial variable as an object containing the size of the variable and its unit of measurement.
+  Lines 36 - 125: within the functions for calculating final velocity, final distance, and remaining fuel amount I desctructed the values for each variable
+
 - Implement accurate unit conversions within the functions.
-- Ensure the corrected functions address the issues of unit mismatches and parameter clarity.
 
-#### Debugging Guide
-
-1. Enhance code readability for easier debugging.
-2. Identify and correct calculation errors.
-3. Improve the robustness of calculations. If incorrect units are used or other errors are detected, the code should notify the user instead of producing an incorrect result.
-
+- Implemented error handling for incorrect units of measurement for velocity, acceleration, time, fuel, and distance.
