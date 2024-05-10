@@ -20,14 +20,6 @@ In this challenge I debugged, refactored, and enhanced JavaScript functions desi
 
    Lines 21 - 23: The arguments for the calcFinalVel function are velocity, acceleration, and time (in that order). However, when the function is called (in line 18) the order of parameters is acceleration, velocity and time.
 
-##### Additional Issues
-
-1. **Vague Variable Names**:
-
-2. **Insufficient Error Handling**:
-
-3. **Incorrect Function Declaration and Calling**:
-
 #### Solution Approach
 
 - Declared global variables to store conversion factors for speed and distance.
